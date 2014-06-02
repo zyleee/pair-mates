@@ -1,0 +1,24 @@
+<div class="row">
+    <h1 class="page-header">
+        Mates
+        <small>A list of your colleagues</small>
+    </h1>
+
+    <form name="add_mate" novalidate ng-submit="mates.add(mate.name)">
+        <div class="input-group form-group">
+            <input name="mate" required ensure-unique type="text" class="form-control" ng-model="mate.name" />
+            <span class="input-group-btn">
+                <button class="btn btn-primary" ng-disabled="add_mate.$invalid" type="submit">Add mate</button>
+            </span>
+        </div>
+        <div class="error-container" ng-show="add_mate.mate.$dirty && add_mate.mate.$invalid">
+            <small class="error" ng-show="add_mate.mate.$error.required">Please input a buddy name</small>
+            <small class="error" ng-show="add_mate.mate.$error.unique">That buddy exists, please try another</small>
+        </div>
+        <span class="help-block">Type in the name of your new buddy</span>
+    </form>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="mate in mates.list()">{{mate.name}}</li>
+    </ul>
+</div>
+
