@@ -99,37 +99,36 @@ angular.module( 'mates', [] )
              */
             getPairs: function ()
             {
-                var randomMates = [],
+                var availableMates = [],
+                    tempMates = [],
                     pairs = [],
                     pair = [],
-                    i = 0;
+                    i = 0,
+                    ii = 0,
+                    currentMate;
 
-                //Create an array with available mates
+                //Create arrays with available mates
                 for(;i<mates.length;i++) {
                     if(true === mates[i].available) {
-                        randomMates.push(mates[i]);
+                        availableMates.push(mates[i]);
+                        tempMates.push(mates[i]);
                     }
                 }
 
-                //sort the new array by random order
-                randomMates.sort( function() {
-                    return (Math.round(Math.random())-0.5);
-                });
-
-                //create a new array with pairs
-                for(i=0;i<randomMates.length;i++) {
-                    if( 2 === pair.length ) {
-                        pairs.push(pair);
-                        pair = [];
+                for(i=0;i<availableMates.length-1;i++) {
+                    currentMate = availableMates[i];
+                    delete tempMates[i];
+                    for(ii=0;ii<tempMates.length;ii++) {
+                        if( tempMates[ii] ) {
+                            pair = [];
+                            pair.push(currentMate);
+                            pair.push(tempMates[ii]);
+                            pairs.push(pair);
+                        }
                     }
-                    pair.push(randomMates[i]);
-                }
-                if( pair.length > 0 ) {
-                    pairs.push(pair);
                 }
 
                 return pairs;
-
             }
         };
     }])

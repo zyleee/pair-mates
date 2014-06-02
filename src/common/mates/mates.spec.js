@@ -21,12 +21,24 @@ describe( 'Mates', function() {
         expect( 5 === $mates.size() ).toBeTruthy();
     }));
 
-    it( ' should return Lolita as a unique name', inject( function($mates) {
+    it( 'should return Lolita as a unique name', inject( function($mates) {
         expect($mates.isUnique('Lolita') ).toBeTruthy();
     }));
 
-    it( ' should return Roger as a NOT unique name', inject( function($mates) {
+    it( 'should return Roger as a NOT unique name', inject( function($mates) {
         expect(!$mates.isUnique('Roger')).toBeTruthy();
+    }));
+
+    it( 'should return 10 possible pairs', inject( function($mates) {
+        var pairs = $mates.getPairs();
+        expect(10 === pairs.length).toBeTruthy();
+    }));
+
+    it( 'should return 15 possible pairs after adding a mate', inject( function($mates) {
+        var pairs;
+        $mates.add('Gustav');
+        pairs = $mates.getPairs();
+        expect(15 === pairs.length).toBeTruthy();
     }));
 
 });
